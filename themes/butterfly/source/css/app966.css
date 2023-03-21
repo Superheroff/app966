@@ -1,0 +1,465 @@
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 2em;
+    /* background-color: rgba(73, 177, 245, .2); */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #1530cb;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+    border-radius: 2em
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+    background-color: #595959;
+}
+
+
+::-webkit-scrollbar-corner {
+    background-color: transparent
+}
+
+/*开始*/
+
+.categoryBar-list {
+    max-height: 400px;
+}
+
+.clock-row {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*3s为加载动画的时间，1为加载动画的次数，ease-in-out为动画效果*/
+
+#page-header,
+#web_bg {
+    -webkit-animation: imgblur 2s 1 ease-in-out;
+    animation: imgblur 2s 1 ease-in-out;
+}
+
+@keyframes imgblur {
+    0% {
+        filter: blur(5px);
+    }
+    100% {
+        filter: blur(0px);
+    }
+}
+
+/*适配使用-webkit内核的浏览器 */
+
+@-webkit-keyframes imgblur {
+    0% {
+        -webkit-filter: blur(5px);
+    }
+    100% {
+        -webkit-filter: blur(0px);
+    }
+}
+.table-wrap img {
+    margin: .6rem auto .1rem !important;
+}
+
+/* 标签外挂 网站卡片 start */
+
+.site-card-group img {
+    margin: 0 auto .1rem !important;
+}
+
+.site-card-group .info a img {
+    margin-right: 10px !important;
+}
+
+[data-theme='dark'] .site-card-group .site-card .info .title {
+    color: #f0f0f0 !important;
+}
+
+[data-theme='dark'] .site-card-group .site-card .info .desc {
+    color: rgba(255, 255, 255, .7) !important;
+}
+
+.site-card-group .info .desc {
+    margin-top: 4px !important;
+}
+/* 代码块颜色 */
+
+figure.highlight pre .addition {
+    color: #00bf03 !important;
+}
+/*结束*/
+
+@font-face {
+    font-family: 'app966';
+    /* 字体名自定义即可 */
+    src: url('https://npm.elemecdn.com/ethan4116-blog/lib/font/ZhuZiAWan.ttf');
+    /* 字体文件路径 */
+    font-display: swap;
+}
+
+body,
+.gitcalendar {
+    font-family: app966 !important;
+}
+
+/*开始*/
+#index-video {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 80vh;
+    width: 100%;
+    object-fit: cover;
+}
+@media only screen and (max-width: 780px) {
+    #index-video {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 780px) {
+    .bg-cover {
+        background-image: none !important;
+    }
+}
+
+/*结束*/
+
+
+
+/* 横向排布子菜单 */
+#nav .menus_items .menus_item .menus_item_child li {
+  display: inline-block;
+}
+/* 圆角隐藏 */
+ul.menus_item_child {
+  overflow: hidden;
+  border-radius: 5px;
+}
+/* 调整空隙，确保不会天下武功唯快不破 */
+#nav .menus_items .menus_item .menus_item_child {
+  margin-top: 0px !important;
+}
+
+
+/* 文章页H1-H6图标样式效果 */
+h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+    -webkit-animation: ccc 1.6s linear infinite ;
+    animation: ccc 1.6s linear infinite ;
+}
+@-webkit-keyframes ccc {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+    }
+}
+@keyframes ccc {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn)
+    }
+}
+content-inner.layout h1:hover, #content-inner.layout h2:hover, #content-inner.layout h3:hover, #content-inner.layout h4:hover, #content-inner.layout h5:hover, content-inner.layout h6:hover {
+    color: #49b1f5 ;
+}
+content-inner.layout h1:hover::before, #content-inner.layout h2:hover::before, #content-inner.layout h3:hover::before, #content-inner.layout h4:hover::before, content-inner.layout h5:hover::before, #content-inner.layout h6:hover::before {
+    color: #49b1f5 ;
+    -webkit-animation: ccc 3.2s linear infinite ;
+    animation: ccc 3.2s linear infinite ;
+}
+.jg-caption{
+    text-align: center !important;
+}
+.jg-caption-visible::before {
+    content: "⊙ ";
+} 
+.fancybox-caption__body::before {
+    content: "⊙ ";
+} 
+.img-alt.is-center::before {
+    content: "⊙ ";
+}
+
+
+:root {
+    --card-bg: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] #web_bg {
+  background: url('https://qcloud.app966.cn/img/wallpaper/pc/background.jpg');
+  background-size: cover;
+}
+
+
+#footer {
+    background: rgba(255,255,255,.15);
+    color: #000;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    backdrop-filter: saturate(100%) blur(5px)
+}
+
+
+
+#footer #footer-wrap {
+    color: var(--font-color)
+}
+
+#footer #footer-wrap a {
+    color: var(--font-color)
+}
+
+
+
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none
+}
+
+.pace-inactive .pace-progress {
+  opacity: 0;
+  transition: .3s
+}
+
+.pace .pace-progress {
+  background: #1530cb;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 3px
+}
+
+}
+.avatar-img img {
+  width: 100%;
+  height: 100%;
+  -webkit-transition: filter 375ms ease-in 0.2s, -webkit-transform 0.3s;
+  -moz-transition: filter 375ms ease-in 0.2s, -moz-transform 0.3s;
+  -o-transition: filter 375ms ease-in 0.2s, -o-transform 0.3s;
+  -ms-transition: filter 375ms ease-in 0.2s, -ms-transform 0.3s;
+  transition: filter 375ms ease-in 0.2s, transform 0.3s;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px #fff solid
+  z-index: 1
+}
+
+
+.avatar-img::before {
+    content: '';
+    position: absolute;
+    bottom: 200px;
+    -webkit-transform: translate(150%);
+    -moz-transform: translate(150%);
+    -o-transform: translate(150%);
+    -ms-transform: translate(150%);
+    transform: translate(320%);
+    width: 15px;
+    height: 15px;
+    background: #6bdf8f;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    -webkit-transition: filter 375ms ease-in .2s,-webkit-transform .3s;
+    -moz-transition: filter 375ms ease-in .2s,-moz-transform .3s;
+    -o-transition: filter 375ms ease-in .2s,-o-transform .3s;
+    -ms-transition: filter 375ms ease-in .2s,-ms-transform .3s;
+    transition: filter 375ms ease-in .2s,transform .3s;
+    z-index: 2
+
+}
+
+@media (min-width: 900px) and (max-width: 1180px) {
+
+.avatar-img::before {
+    bottom: 240px;
+}}
+
+#sidebar #sidebar-menus > .avatar-img::before {
+  display: none;
+}
+
+.docute-button:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+.docute-button {
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    outline: none;
+    border-radius: 33px;
+    padding: 5px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background-color .3s ease;
+}
+
+[data-theme='dark'] .docute-button:hover{
+    color: #5a6263;
+    background-color: #fff;
+}
+
+[data-theme='dark'] .docute-button {
+    border: 2px solid #fff;
+    background-color: #5a6263;
+    color: #fff
+}
+
+[data-theme='dark'] .site-data > a:hover div {
+  color: #ca7c7c !important;
+}
+
+[data-theme='dark'] #aside-content .aside-list > .aside-list-item .content > .comment:hover {
+  color: #ca7c7c;
+}
+[data-theme='dark'] #aside-content .card-tag-cloud a:hover {
+  color: #ca7c7c !important;
+}
+
+[data-theme='dark'] #aside-content #card-toc .toc-content .toc-link:hover {
+  color: #ca7c7c;
+}
+
+[data-theme='dark'] #aside-content .aside-list > .aside-list-item .content > .title:hover {
+  color: #ca7c7c;
+}
+
+[data-theme='dark'] #aside-content .aside-list > .aside-list-item .content > .comment:hover {
+  color: #ca7c7c;
+}
+
+[data-theme='dark'] #page-header.nav-fixed #nav #toggle-menu:hover {
+  color: #ca7c7c;
+}
+
+[data-theme='dark'] #nav .site-page:not(.child):after {
+  background-color: #ca7c7c;
+}
+
+[data-theme='dark'] #aside-content .card-announcement .item-headline i {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+.aplayer .aplayer-list {
+    max-height: 620px;
+}
+
+.aplayer .aplayer-list ol {
+    max-height: 620px;
+}
+
+.aplayer-wrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+#statistic {
+    display: flex;
+    justify-content: space-between;
+}
+
+#statistic .item {
+    display: inline-block;
+    padding: 15px 35px;
+    width: 100%
+}
+
+div#statistic .item .title {
+    font-weight: 700;
+    line-height: 2.5;
+    font-size: 2rem;
+    margin-bottom: 20px
+}
+
+div#statistic .item .content {
+    min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between
+}
+
+
+#statistic .item .content div {
+    width: 30%;
+    display: inline-block;
+    margin-bottom: 1.8rem
+}
+
+#statistic .item .tips,#statistic .item div span {
+    font-size: 14px;
+    line-height: 1.1;
+    display: block
+}
+
+#statistic .item div .num {
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    white-space: nowrap
+}
+
+@media (max-width: 768px) {
+#statistic .item .content div {
+    width: 50%;
+}
+
+[data-theme='dark'] #web_bg {
+    background: url('https://qcloud.app966.cn/img/wallpaper/mobile/background_phone.jpg');
+    background-size: cover;
+  }
+}
+
+
+#rightside > div > button,
+#rightside > div > a {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  line-height: 41px;
+}
+
+.loading-img {
+  background: url('/img/qq.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+
+.loading-bg {
+  background: rgba(89, 90, 92, 0.7);
+}
+
+#aside-content .card-widget,#bber-talk,#container,#post .post-copyright,#recent-posts>.recent-post-item,.cardHover,.error404 #error-wrap .error-content,.layout>div:first-child:not(.recent-posts),.search-dialog {
+    border-radius: 12px;
+    box-shadow: none;
+    border: 1px solid #e0e3ed;
+    box-sizing: border-box;
+    transition: all .3s ease-in-out;
+}
+
+#aside-content .card-widget:hover,#bber-talk:hover,#container,#post .post-copyright:hover,#recent-posts>.recent-post-item:hover,.cardHover:hover,.error404 #error-wrap .error-content:hover,.layout>div:first-child:not(.recent-posts):hover,.search-dialog {
+    border-color: #1530cb;
+    box-shadow: none
+}
+
