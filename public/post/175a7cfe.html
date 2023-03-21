@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>抖音直播弹幕捕获【转载 + 修改】 | 记录精彩</title><meta name="keywords" content="抖音直播弹幕"><meta name="author" content="Superhero,838210720@qq.com"><meta name="copyright" content="Superhero"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言 无意在精易论坛看到了这个帖子 简单浏览了下这个源码的逻辑就是运行webDriver.py把弹幕下载下来并且存放在douyinLiveFile文件夹中 然后运行webChat.py去读douyinLiveFile文件夹中下载好的弹幕并解析 是通过playwright检测网页响应状态，对于爬虫来说就是自动抓取指定的内容，不需要任何算法，反爬将毫无意义，这让我想起了另一款神器selenium 这里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抖音直播弹幕捕获【转载 + 修改】">
+<meta property="og:url" content="https://www.app966.cn/post/175a7cfe.html">
+<meta property="og:site_name" content="记录精彩">
+<meta property="og:description" content="前言 无意在精易论坛看到了这个帖子 简单浏览了下这个源码的逻辑就是运行webDriver.py把弹幕下载下来并且存放在douyinLiveFile文件夹中 然后运行webChat.py去读douyinLiveFile文件夹中下载好的弹幕并解析 是通过playwright检测网页响应状态，对于爬虫来说就是自动抓取指定的内容，不需要任何算法，反爬将毫无意义，这让我想起了另一款神器selenium 这里">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.app966.cn/temp/img/Maite_Positive.jpg">
+<meta property="article:published_time" content="2022-07-29T23:27:53.000Z">
+<meta property="article:modified_time" content="2023-01-26T12:46:36.708Z">
+<meta property="article:author" content="Superhero">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.app966.cn/temp/img/Maite_Positive.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.app966.cn/post/175a7cfe"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?34a82c2c0c11c86c2da67352a42e0013";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"HP4B4F9DUN","apiKey":"8527aec9ee58fb2efe4f8eb1e60474b8","indexName":"superhero","hits":{"per_page":10},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"自上次更新以来，文章的内容可能已经过时。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":500,"languages":{"author":"作者: Superhero","link":"链接: ","source":"来源: 记录精彩","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '抖音直播弹幕捕获【转载 + 修改】',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-01-26 20:46:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script><script src="/js/logs.js"></script><link rel="stylesheet" href="/css/app966.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="记录精彩" type="application/atom+xml">
+</head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/dog.gif" data-lazy-src="/img/qq.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child" style="left:-55px;"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heart-circle-plus"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child" style="left:-55px;"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/video/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li><li><a class="site-page child" href="/picture/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-circle-info"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child" style="left:-55px;"><li><a class="site-page child" href="/charts/"><i class="fa-fw fa-solid fa-chart-area"></i><span> 统计</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://status.app966.cn/"><i class="fa-fw fa-solid fa-earth-americas"></i><span> 状态</span></a></li><li><a class="site-page child" href="/update/"><i class="fa-fw fa-solid fa-circle-up"></i><span> 更新</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-address-card"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/temp/img/Maite_Positive.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">记录精彩</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child" style="left:-55px;"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-heart-circle-plus"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child" style="left:-55px;"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/video/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li><li><a class="site-page child" href="/picture/"><i class="fa-fw fas fa-image"></i><span> 相册</span></a></li></ul></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-circle-info"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child" style="left:-55px;"><li><a class="site-page child" href="/charts/"><i class="fa-fw fa-solid fa-chart-area"></i><span> 统计</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://status.app966.cn/"><i class="fa-fw fa-solid fa-earth-americas"></i><span> 状态</span></a></li><li><a class="site-page child" href="/update/"><i class="fa-fw fa-solid fa-circle-up"></i><span> 更新</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-user-group"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-address-card"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">抖音直播弹幕捕获【转载 + 修改】</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-29T23:27:53.000Z" title="发表于 2022-07-30 07:27:53">2022-07-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-01-26T12:46:36.708Z" title="更新于 2023-01-26 20:46:36">2023-01-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">732</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="抖音直播弹幕捕获【转载 + 修改】"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ol>
+<li>无意在精易论坛看到了<a target="_blank" rel="noopener" href="https://bbs.125.la/thread-14739135-1-2.html">这个帖子</a><div class="img-wrap"><div class="img-bg"><img class="img" src= "/img/dog.gif" data-lazy-src="/temp/img/dylive_1.png"/></div></div></li>
+<li>简单浏览了下这个源码的逻辑就是运行<code>webDriver.py</code>把弹幕下载下来并且存放在<code>douyinLiveFile</code>文件夹中</li>
+<li>然后运行<code>webChat.py</code>去读<code>douyinLiveFile</code>文件夹中下载好的弹幕并解析</li>
+<li>是通过<code>playwright</code>检测网页响应状态，对于爬虫来说就是自动抓取指定的内容，不需要任何算法，反爬将毫无意义，这让我想起了另一款神器<code>selenium</code></li>
+<li>这里很有必要去了解一下<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038697288">Playwright是什么</a></li>
+<li>补充：这个方法比wss连接的要好，物理外挂最为致命，并且playwright是<code>支持异步</code>的，也就是可以<code>执行多个</code>直播间的任务，具体转到<a target="_blank" rel="noopener" href="https://playwright.dev/python/docs/intro">playwright官方文档</a>查阅</li>
+<li>简单的加密已经不能防范这个方式的爬虫了，只要浏览器可以看的它都可以获取</li>
+<li>此源码需要有python基础，不太适合新手，因为这个只是做了个获取演示，你需要再去修改处理获取后的内容，要更方便的使用最好部署在服务器中</li>
+<li>我博客很多内容都是一个结果而没有分析过程导致好像是搬运而来的一样，我只是不太喜欢写教程以及过程这样太麻烦了，后面会慢慢改正</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><strong>注意事项</strong></p>
+<ul>
+<li>只能使用网页版直播链接</li>
+<li>我这里只放<code>修改</code>处</li>
+<li><a href="/temp/抖音弹幕捕获.zip">点击此处下载</a>完整版</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">from</span> google.protobuf.json_format <span class="keyword">import</span> MessageToDict</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> messages.message_pb2 <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getScriptDir</span>():</span><br><span class="line">    <span class="keyword">return</span> os.path.split(os.path.realpath(__file__))[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Watcher</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.monitoringFile = <span class="string">f&#x27;<span class="subst">&#123;getScriptDir()&#125;</span>\\douyinLiveFile&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">startWatcher</span>(<span class="params">self</span>):</span><br><span class="line">            files = os.listdir(self.monitoringFile)</span><br><span class="line">            <span class="keyword">if</span> files:</span><br><span class="line">                <span class="keyword">for</span> _ <span class="keyword">in</span> files:</span><br><span class="line">                    filepath = self.monitoringFile + <span class="string">&#x27;\\&#x27;</span> + _</span><br><span class="line">                    <span class="keyword">with</span> <span class="built_in">open</span>(filepath, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                        datas = &#123;&#125;</span><br><span class="line">                        messages = []</span><br><span class="line">                        danmu_resp = Response()</span><br><span class="line">                        danmu_resp.ParseFromString(f.read())</span><br><span class="line">                        f.close()</span><br><span class="line">                        obj = MessageToDict(danmu_resp, preserving_proto_field_name=<span class="literal">True</span>)</span><br><span class="line">                        <span class="keyword">if</span> obj:</span><br><span class="line">                            <span class="keyword">if</span> obj.get(<span class="string">&#x27;messages&#x27;</span>):</span><br><span class="line">                                datas.update(&#123;<span class="string">&#x27;now&#x27;</span>: obj.get(<span class="string">&#x27;now&#x27;</span>)&#125;)</span><br><span class="line">                                <span class="keyword">for</span> message <span class="keyword">in</span> obj[<span class="string">&quot;messages&quot;</span>]:</span><br><span class="line">                                    method = message[<span class="string">&quot;method&quot;</span>]</span><br><span class="line">                                    payload = <span class="built_in">bytes</span>(base64.b64decode(message[<span class="string">&quot;payload&quot;</span>].encode()))</span><br><span class="line">                                    <span class="keyword">if</span> method == <span class="string">&quot;WebcastMemberMessage&quot;</span>:</span><br><span class="line">                                        menber_message = MemberMessage()</span><br><span class="line">                                        menber_message.ParseFromString(payload)</span><br><span class="line">                                        obj1 = MessageToDict(menber_message, preserving_proto_field_name=<span class="literal">True</span>)</span><br><span class="line">                                        obj1 = &#123;<span class="string">&#x27;method&#x27;</span>: method, <span class="string">&#x27;msgId&#x27;</span>: message[<span class="string">&#x27;msgId&#x27;</span>], <span class="string">&#x27;payload&#x27;</span>: obj1&#125;</span><br><span class="line">                                        messages.append(obj1)</span><br><span class="line">                                    <span class="keyword">if</span> method == <span class="string">&quot;WebcastChatMessage&quot;</span>:</span><br><span class="line">                                        menber_message5 = ChatMessage()</span><br><span class="line">                                        menber_message5.ParseFromString(payload)</span><br><span class="line">                                        obj2 = MessageToDict(menber_message5, preserving_proto_field_name=<span class="literal">True</span>)</span><br><span class="line">                                        obj2 = &#123;<span class="string">&#x27;method&#x27;</span>: method, <span class="string">&#x27;msgId&#x27;</span>: message[<span class="string">&#x27;msgId&#x27;</span>], <span class="string">&#x27;payload&#x27;</span>: obj2&#125;</span><br><span class="line">                                        messages.append(obj2)</span><br><span class="line"></span><br><span class="line">                                datas.update(&#123;<span class="string">&#x27;data&#x27;</span>: messages&#125;)</span><br><span class="line">                                ret = json.dumps(datas)</span><br><span class="line">                                <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./userImages/&#x27;</span> + <span class="built_in">str</span>(<span class="built_in">int</span>(time.time())) + <span class="string">&#x27;.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">                                    file.write(ret)</span><br><span class="line">                                    file.close()</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            ret = &#123;<span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;请先运行webdriver获取弹幕文件&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">print</span>(ret)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(getScriptDir()+<span class="string">&quot;\\douyinLiveFile&quot;</span>):<span class="comment"># 这里存放未解析的弹幕文件</span></span><br><span class="line">        os.makedirs(getScriptDir()+<span class="string">&quot;\\douyinLiveFile&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(getScriptDir()+<span class="string">&quot;\\userImages&quot;</span>):<span class="comment"># 这里存放解析好的json数据文件</span></span><br><span class="line">        os.makedirs(getScriptDir()+<span class="string">&quot;\\userImages&quot;</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line">            asyncio.run(Watcher().startWatcher())</span><br></pre></td></tr></table></figure>
+<h1 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h1><div class='checkbox green checked'><input type="checkbox" checked="checked"/>
+            <p>本源码仅限学习交流</p>
+            </div>
+<div class='checkbox times red checked'><input type="checkbox" checked="checked"/>
+            <p>请勿用于非法途径</p>
+            </div>
+<div class="img-wrap"><div class="img-bg"><img class="img" src= "/img/dog.gif" data-lazy-src="/img/dylive.png"/></div></div>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>抖音直播弹幕捕获【转载 + 修改】</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://www.app966.cn/post/175a7cfe.html">https://www.app966.cn/post/175a7cfe.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Superhero</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2022-07-30</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2023-01-26</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/temp/img/Maite_Positive.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/dog.gif" data-lazy-src="/img/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/dog.gif" data-lazy-src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/1dcad1c5.html"><img class="prev-cover" src= "/img/dog.gif" data-lazy-src="/temp/img/Maite-franchi-folio-art-food-illustration-Barilla_Basilic-Pistachio-pesto-pasta.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">🎭 playwright 相关笔记</div></div></a></div><div class="next-post pull-right"><a href="/post/cf85313.html"><img class="next-cover" src= "/img/dog.gif" data-lazy-src="/temp/img/HifuMiyo-Folio-Art-Editorial-Illustration-Waitrose-Weekend.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">抖音汽水音乐API</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/d25b4188.html" title="各类api整理"><img class="cover" src= "/img/dog.gif" data-lazy-src="/temp/img/James-Gilleard-Folio-Illustration-Chef-Digital.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-18</div><div class="title">各类api整理</div></div></a></div><div><a href="/post/13f111f1.html" title="解决aplayer无法播放的问题"><img class="cover" src= "/img/dog.gif" data-lazy-src="https://qcloud.app966.cn/img/cover/2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-21</div><div class="title">解决aplayer无法播放的问题</div></div></a></div><div><a href="/post/38eaae15.html" title="python + go-cqhttp + nonebot搭建企鹅机器人相关教程"><img class="cover" src= "/img/dog.gif" data-lazy-src="/temp/img/James-Gilleard-Folio-Illustration-Building-Construction-Quarry-Digital.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-08</div><div class="title">python + go-cqhttp + nonebot搭建企鹅机器人相关教程</div></div></a></div><div><a href="/post/ef63b2d7.html" title="Butterfly友链检查、友链朋友圈开发"><img class="cover" src= "/img/dog.gif" data-lazy-src="/temp/img/James-Gilleard-Folio-Illustration-Scientist-Research.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-11</div><div class="title">Butterfly友链检查、友链朋友圈开发</div></div></a></div><div><a href="/post/b8baec7.html" title="抖音自动上传视频"><img class="cover" src= "/img/dog.gif" data-lazy-src="/temp/img/world-chess.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-07</div><div class="title">抖音自动上传视频</div></div></a></div><div><a href="/post/a26d3af5.html" title="aplayer魔改"><img class="cover" src= "/img/dog.gif" data-lazy-src="https://qcloud.app966.cn/img/cover/1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-20</div><div class="title">aplayer魔改</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/dog.gif" data-lazy-src="/img/qq.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Superhero</div><div class="author-info__description">生活不止眼前的苟且</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=838210720&amp;site=qq&amp;menu=yes&amp;quot" target="_blank" title="QQ"><i class="fab fa-qq"></i></a><a class="social-icon" href="/" target="_blank" title="fanyoubin_8888"><i class="fab fa-weixin"></i></a><a class="social-icon" href="https://t.me/Allbbmp" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a><a class="social-icon" href="https://github.com/Superheroff" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:838210720@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">加入QQ群<br/>①群：629412590<br/>②群：916790180</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F"><span class="toc-number">3.</span> <span class="toc-text">结束</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/13f111f1.html" title="解决aplayer无法播放的问题"><img src= "/img/dog.gif" data-lazy-src="https://qcloud.app966.cn/img/cover/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决aplayer无法播放的问题"/></a><div class="content"><a class="title" href="/post/13f111f1.html" title="解决aplayer无法播放的问题">解决aplayer无法播放的问题</a><time datetime="2023-01-21T07:54:42.000Z" title="发表于 2023-01-21 15:54:42">2023-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/26fa8bad.html" title="butterfly切换夜间模式更换背景"><img src= "/img/dog.gif" data-lazy-src="https://qcloud.app966.cn/img/cover/clouds-g9c2046d48_640.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="butterfly切换夜间模式更换背景"/></a><div class="content"><a class="title" href="/post/26fa8bad.html" title="butterfly切换夜间模式更换背景">butterfly切换夜间模式更换背景</a><time datetime="2022-12-01T04:14:30.000Z" title="发表于 2022-12-01 12:14:30">2022-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/a26d3af5.html" title="aplayer魔改"><img src= "/img/dog.gif" data-lazy-src="https://qcloud.app966.cn/img/cover/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="aplayer魔改"/></a><div class="content"><a class="title" href="/post/a26d3af5.html" title="aplayer魔改">aplayer魔改</a><time datetime="2022-11-20T06:33:10.000Z" title="发表于 2022-11-20 14:33:10">2022-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/b8baec7.html" title="抖音自动上传视频"><img src= "/img/dog.gif" data-lazy-src="/temp/img/world-chess.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="抖音自动上传视频"/></a><div class="content"><a class="title" href="/post/b8baec7.html" title="抖音自动上传视频">抖音自动上传视频</a><time datetime="2022-11-07T08:01:25.000Z" title="发表于 2022-11-07 16:01:25">2022-11-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/5f69c3c3.html" title="快手did注册"><img src= "/img/dog.gif" data-lazy-src="/temp/img/Michael.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="快手did注册"/></a><div class="content"><a class="title" href="/post/5f69c3c3.html" title="快手did注册">快手did注册</a><time datetime="2022-08-20T14:57:10.000Z" title="发表于 2022-08-20 22:57:10">2022-08-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Superhero</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src= "/img/dog.gif" data-lazy-src="/img/icp.png"><span>赣ICP备19002474号-2</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-message"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader1 = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader1.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://www.52jian.cc',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://www.52jian.cc',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.staticfile.org/twikoo/1.6.10/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://www.52jian.cc',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.staticfile.org/twikoo/1.6.10/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="https://fastly.jsdelivr.net/gh/CodeByZach/pace@1.2.3/pace.min.js"></script><script defer data-pjax src="/js/app966.js"></script><script defer src="https://fastly.jsdelivr.net/gh/graingert/wow@1.3.0/dist/wow.min.js"></script><script defer data-pjax src="/js/wow_init.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn1.tianli0.top/npm/js-heo@1.0.12/metingjs/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/issues.js"></script><!-- hexo injector body_end end --></body></html>

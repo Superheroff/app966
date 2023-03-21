@@ -1,0 +1,62 @@
+- class_name: 友情链接
+  class_desc: 排名不分先后
+  link_list:      
+    - name: Ethan.Tzy
+      link: https://tzy1997.com/
+      avatar: https://bu.dusays.com/2022/05/02/626f92e193879.jpg
+      descr: 古今之成大事者，不惟有超世之才，亦必有坚忍不拔之志。
+      screenshot: https://bu.dusays.com/2022/06/01/6296ceb2e4935.jpg
+      
+    - name: "Leonus's blog"
+      link: https://blog.leonus.cn/
+      avatar: https://q1.qlogo.cn/g?b=qq&nk=553344777&s=5
+      descr: 进一寸有进一寸的欢喜。
+      screenshot: https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://blog.leonus.cn/
+      
+    - name: 张洪Heo
+      link: https://blog.zhheo.com/
+      avatar: https://f.zhheo.com/Guli/img/avatar2.png
+      descr: 分享设计与科技生活
+      screenshot: /link_img/heo.png
+      
+    - name: 爱编程的小明
+      link: https://kebuaaa.github.io/
+      avatar: https://kebuaaa.github.io/img/avatar.png
+      descr: 不要温和地走进那个良夜 
+      screenshot: /link_img/xiaoming.png
+      
+    - name: space of Lee
+      link: https://blog.lyt11.cn/
+      avatar: https://blog.lyt11.cn/imgs/wangye.jpg
+      descr: 桃李春风一杯酒
+      screenshot: /link_img/lee.png
+      
+    - name: 御网尚书的主页
+      link: https://www.siteweb.cn/
+      avatar: https://www.hack-gov.cn/favicon.ico
+      descr: 这里是御网尚书主页-This is the official website of the Internet website
+      screenshot: /link_img/ywss.png
+      
+    - name: 咕咕云梦泽
+      link: https://blog.pai233.top/
+      descr: Write Down My Life.
+      avatar: https://blog.pai233.top/img/avatar.jpg
+      screenshot: /link_img/ggymz.png
+
+    - name: Jayhrn
+      link: https://blog.jayhrn.com
+      avatar: https://fastly.jsdelivr.net/gh/Jayhrn/CDN/img/avatar.png
+      descr: 念念不忘，必有回响
+      screeshot: https://image.thum.io/get/width/400/crop/800/allowJPG/wait/20/noanimate/https://blog.jayhrn.com/
+
+    - name: P6oy的杂货铺
+      link: https://p6oy.top
+      avatar: https://file.p6oy.top/p6.2.webp
+      descr: 啥都不会，叼毛一个
+      screeshot: https://file.p6oy.top/27.webp
+      
+    - name: LyShark - 孤风洗剑
+      link: https://www.lyshark.com
+      avatar: https://www.lyshark.com/images/baidu_logo.png
+      descr: 道，可道，非常道；名，可名，非常名。—— 老子《道德经》
+      screeshot: https://qcloud.app966.cn/img/friends/gf.png
