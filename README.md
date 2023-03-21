@@ -7,7 +7,7 @@
 - 主题版本：Butterfly4.2.2
 # 搭建流程
 - [安装node](https://www.app966.cn/post/98204530.html)
-- 安装git和hexo，执行下面命令（centos安装命令）
+- 安装git和hexo，执行下面命令
 ```
 sudo yum install git-core
 npm install -g hexo-cli
