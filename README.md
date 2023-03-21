@@ -3,8 +3,9 @@
 # 博客说明
 - 使用了[hexo框架](https://hexo.io/zh-cn/)
 - 使用了[Butterfly主题](https://github.com/jerryc127/hexo-theme-butterfly)
-- 系统版本：centos7
+- 系统版本：Centos 7
 - 主题版本：Butterfly4.2.2
+- Hexo版本：4.3.0
 # 搭建流程
 - [安装node](https://www.app966.cn/post/98204530.html)
 - 安装git和hexo，执行下面命令
